@@ -1,6 +1,7 @@
 import PyPDF2, sivu_class
 from tkinter import *
 from datetime import datetime
+
 # TODO: Ikkuna levittää itsentä niin että teksti pomppaa pois näkyvistä
 # TODO: Lista täyttyy loputtomiin line 101
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
