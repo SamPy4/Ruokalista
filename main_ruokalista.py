@@ -5,7 +5,7 @@ from datetime import datetime
 # TODO: Lista täyttyy loputtomiin line 101
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
 # TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voidi tehdä sen pdf:n käsittelyssä
-#muutos
+
 class main():
     def __init__(self):
         self.version = "3.5.6"
@@ -40,8 +40,8 @@ class main():
             self.currWeek = 6
         elif self.currDay in range(9,16) and self.currMonth == 9:
             self.currWeek = 7
-        print(self.currWeek)
-        print(self.currDay, self.currMonth)
+        #print(self.currWeek)
+        #print(self.currDay, self.currMonth)
 
     def run(self):
         paiva = {"maanantai"   : 0,
