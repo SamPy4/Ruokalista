@@ -5,6 +5,7 @@ from datetime import datetime
 # TODO: Lista täyttyy loputtomiin line 101
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
 # TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voidi tehdä sen pdf:n käsittelyssä
+
 class main():
     def __init__(self):
         self.version = "3.5.6"
