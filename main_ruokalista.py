@@ -9,7 +9,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "3.5.6"
+        self.version = "3.6.6"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -118,10 +118,20 @@ class main():
 
             self.text = paivanRuoka
 
+        def kirjoitaTanaan():
+            valittuPaiva.set(self.currDaySTR)
+            valittuViikko.set(self.currWeek)
+
+            kirjoita(self.text)
+
         kirjoita(self.text) #Tulostaa suoraan avatessa päivän ruoan
+
+        tanaanNappi = Button(self.ikkuna, text="Tänään", command=kirjoitaTanaan)
+        tanaanNappi.grid(column=2,row=3)
 
         paivita = Button(text="Päivitä", command=lambda: kirjoita(self.text))
         paivita.grid(column=1, row=3)
+
 
         mainloop()
 
