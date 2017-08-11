@@ -69,7 +69,7 @@ class main():
         TopText = Label(self.ikkuna, text="v. %s" % self.version)
         TopText.grid(column=0, row=0)
 
-        currViikkoText = Label(self.ikkuna, text="Nyt on viikko %i" % self.currWeek)
+        currViikkoText = Label(self.ikkuna, text="Olemme viikolla %i" % self.currWeek)
         currViikkoText.grid(column=2, row=1)
 
         currPaivaText = Label(self.ikkuna, text="Tänään on %s" % self.currDaySTR)
