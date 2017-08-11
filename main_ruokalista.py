@@ -9,7 +9,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "3.6.6"
+        self.version = "3.6.7"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
