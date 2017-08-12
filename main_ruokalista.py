@@ -4,7 +4,7 @@ from datetime import datetime
 
 # TODO: Ikkuna levittää itsentä niin että teksti pomppaa pois näkyvistä
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
-# TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voidi tehdä sen pdf:n käsittelyssä
+# TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voisi tehdä sen pdf:n käsittelyssä
 
 class main():
     def __init__(self):
