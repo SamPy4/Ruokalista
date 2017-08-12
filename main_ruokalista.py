@@ -3,13 +3,13 @@ from tkinter import *
 from datetime import datetime
 
 # TODO: Ikkuna levittää itsentä niin että teksti pomppaa pois näkyvistä
-# TODO: Lista täyttyy loputtomiin line 101
+# TODO: Lista täyttyy loputtomiin line 110
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
 # TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voidi tehdä sen pdf:n käsittelyssä
 
 class main():
     def __init__(self):
-        self.version = "3.6.7"
+        self.version = "3.6.9"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -100,14 +100,14 @@ class main():
         # text = paivanRuoka
         # paivanRuoka.pack()
 
+        for i in range(6):
+            # Töytetään lista "syksy" sivu-objekteilla vain kerran ohjelman
+            # ajon aikana
+            syksy.append(sivu_class.sivu(i+1))
 
         def kirjoita(label):
             """ Overwrites the existing text and replaces it"""
             label.destroy()
-
-
-            for i in range(6):
-                syksy.append(sivu_class.sivu(i+1)) # Ei koskaan tyhjennetä
 
             # 0-4 maanantai = 0 perjantai = 4
             paivatList = syksy[int(valittuViikko.get())-1].getPaivatList()
