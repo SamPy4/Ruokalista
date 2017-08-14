@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "3.6.9"
+        self.version = "3.8.5"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -113,7 +113,7 @@ class main():
 
             paivanRuokaStr = paivatList[paiva[valittuPaiva.get()]]
             paivanRuoka = Label(self.ikkuna, text=paivanRuokaStr)
-            paivanRuoka.grid(column=1, row=4)
+            paivanRuoka.grid(column=2, row=4)
 
             self.text = paivanRuoka
 
@@ -123,11 +123,41 @@ class main():
 
             kirjoita(self.text)
 
+        def kirjoitaHuomenna():
+            paivanro = datetime.now().weekday()
+
+            if paivanro == 5:
+                valittuPaiva.set(self.paivatStr[0])
+                valittuViikko.set(self.currWeek+1)
+            elif paivanro < 6:
+                valittuPaiva.set(self.paivatStr[paivanro+1])
+                valittuViikko.set(self.currWeek)
+
+            kirjoita(self.text)
+
+        def kirjoitaEilen():
+            paivanro = datetime.now().weekday()
+
+            if paivanro == 0:
+                valittuPaiva.set(self.paivatStr[4])
+                valittuViikko.set(self.currWeek-1)
+            elif paivanro < 6:
+                valittuPaiva.set(self.paivatStr[paivanro-1])
+                valittuViikko.set(self.currWeek)
+
+            kirjoita(self.text)
+
         kirjoita(self.text) #Tulostaa suoraan avatessa päivän ruoan
 
         # Tulostaa tämän päivän tuoan välittämättä siitä, missä käyttäjä on
         tanaanNappi = Button(self.ikkuna, text="Tänään", command=kirjoitaTanaan)
         tanaanNappi.grid(column=2,row=3)
+
+        eilenNappi = Button(self.ikkuna, text="Eilen", command=kirjoitaEilen)
+        eilenNappi.grid(column=3,row=3)
+
+        huomennaNappi = Button(self.ikkuna, text="Huomenna", command=kirjoitaHuomenna)
+        huomennaNappi.grid(column=4, row=3)
 
         paivita = Button(text="Päivitä", command=lambda: kirjoita(self.text))
         paivita.grid(column=1, row=3)
