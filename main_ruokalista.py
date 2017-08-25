@@ -148,7 +148,7 @@ class main():
 
             kirjoita(self.text)
 
-        kirjoita(self.text) #Tulostaa suoraan avatessa päivän ruoan
+        kirjoita(self.text) #Tulostaa ohjeman avautuessa päivän ruoan
 
         # Tulostaa tämän päivän tuoan välittämättä siitä, missä käyttäjä on
         tanaanNappi = Button(self.ikkuna, text="Tänään", command=kirjoitaTanaan)
