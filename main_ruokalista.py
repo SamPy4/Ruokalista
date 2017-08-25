@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "3.8.7"
+        self.version = "3.8.8"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -166,5 +166,6 @@ class main():
 
         mainloop()
 
-main = main()
-main.run()
+if __name__ == "__main__":
+    main = main()
+    main.run()
