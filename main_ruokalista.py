@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "3.8.6"
+        self.version = "3.8.7"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -125,11 +125,12 @@ class main():
 
         def kirjoitaHuomenna():
             paivanro = datetime.now().weekday()
+            print(paivanro)
 
-            if paivanro == 5:
+            if paivanro == 4:
                 valittuPaiva.set(self.paivatStr[0])
                 valittuViikko.set(self.currWeek+1)
-            elif paivanro < 6:
+            elif paivanro < 4:
                 valittuPaiva.set(self.paivatStr[paivanro+1])
                 valittuViikko.set(self.currWeek)
 
