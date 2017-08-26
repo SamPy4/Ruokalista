@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "3.8.8"
+        self.version = "4.8.9"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -25,6 +25,8 @@ class main():
         self.currMonth  = datetime.now().month
         self.currWeek   = 0
         self.currDaySTR = self.paivatStr[datetime.now().weekday()]
+
+        self.etsittava = StringVar()
 
         if self.currDay in range(7, 12) and self.currMonth == 8:
             self.currWeek = 1
@@ -88,6 +90,11 @@ class main():
         paivaValikko = OptionMenu(self.ikkuna, valittuPaiva, *paiva)
         paivaValikko.grid(column=1, row=2)
 
+        """INITIALIZING SEARCH ENTRY"""
+
+        etsinta = Entry(self.ikkuna, textvariable=self.etsittava)
+        etsinta.grid(column=0, row=5)
+
         for i in range(7):
             syksy.append(sivu_class.sivu(i))
 
@@ -148,6 +155,12 @@ class main():
 
             kirjoita(self.text)
 
+        def etsi():
+            for paiva in syksy:
+                paiva.etsinta(self.etsittava.get())
+
+            return
+
         kirjoita(self.text) #Tulostaa ohjeman avautuessa päivän ruoan
 
         # Tulostaa tämän päivän tuoan välittämättä siitä, missä käyttäjä on
@@ -163,6 +176,8 @@ class main():
         paivita = Button(text="Päivitä", command=lambda: kirjoita(self.text))
         paivita.grid(column=1, row=3)
 
+        etsiNappi = Button(self.ikkuna, text="Etsi", command=etsi)
+        etsiNappi.grid(column=1,row=5)
 
         mainloop()
 
