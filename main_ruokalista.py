@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "4.8.9"
+        self.version = "5.0.0"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -95,8 +95,10 @@ class main():
         etsinta = Entry(self.ikkuna, textvariable=self.etsittava)
         etsinta.grid(column=0, row=5)
 
-        for i in range(7):
-            syksy.append(sivu_class.sivu(i))
+        for i in range(6):
+            # Töytetään lista "syksy" sivu-objekteilla vain kerran ohjelman
+            # ajon aikana
+            syksy.append(sivu_class.sivu(i+1))
 
         paivatList = syksy[int(valittuViikko.get())].getPaivatList()
 
@@ -105,11 +107,6 @@ class main():
         # paivanRuoka = Label(self.ikkuna, text=paivanRuokaStr)
         # text = paivanRuoka
         # paivanRuoka.pack()
-
-        for i in range(6):
-            # Töytetään lista "syksy" sivu-objekteilla vain kerran ohjelman
-            # ajon aikana
-            syksy.append(sivu_class.sivu(i+1))
 
         def kirjoita(label):
             """ Overwrites the existing text and replaces it"""
@@ -156,8 +153,20 @@ class main():
             kirjoita(self.text)
 
         def etsi():
+            tulokset = []
             for paiva in syksy:
-                paiva.etsinta(self.etsittava.get())
+                tulokset.append(paiva.etsinta(self.etsittava.get()))
+
+            yht = 0
+            for tulos in tulokset:
+                for paiva in tulos:
+                    if paiva[1] == "-M":
+                        print(paiva[0], "MA")
+
+                    else:
+                        print(paiva[0], paiva[1])
+                    yht += 1
+            print("Yhteensä", yht)
 
             return
 
