@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.0.0"
+        self.version = "5.0.1"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -153,6 +153,7 @@ class main():
             kirjoita(self.text)
 
         def etsi():
+            """ Etsitään kaikista mahdollisista päivistä, sisältääkö merkkijono etsittävän"""
             tulokset = []
             for paiva in syksy:
                 tulokset.append(paiva.etsinta(self.etsittava.get()))
@@ -161,12 +162,13 @@ class main():
             for tulos in tulokset:
                 for paiva in tulos:
                     if paiva[1] == "-M":
-                        print(paiva[0], "MA")
+                        print("viikko:", paiva[0], "päivä:", "MA")
 
                     else:
-                        print(paiva[0], paiva[1])
+                        print("viikko:", paiva[0], "päivä:", paiva[1])
                     yht += 1
             print("Yhteensä", yht)
+
 
             return
 
