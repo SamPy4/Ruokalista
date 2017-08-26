@@ -6,6 +6,7 @@ class sivu():
         self.reader  = PyPDF2.PdfFileReader(self.ruokaListaORG)
         self.sivu  =  self.reader.getPage(sivuIndex)
 
+        self.sivuIndex = sivuIndex
         self.sivunSisalto = self.sivu.extractText()
 
 
@@ -47,14 +48,14 @@ class sivu():
 
         return self.paivatList
 
-
-
     def etsinta(self, etsittava):
+        tulokset = []
         for paiva in self.paivatList:
 
             if etsittava in paiva:
-                print("Löytyi!!!")
 
-            else: print("Nope")
+                vko = self.sivuIndex
+                pv = paiva[3:5]
+                tulokset.append((vko, pv))
 
-        return
+        return tulokset
