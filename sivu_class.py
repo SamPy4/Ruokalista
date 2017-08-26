@@ -8,6 +8,7 @@ class sivu():
 
         self.sivunSisalto = self.sivu.extractText()
 
+
         self.viikko = [
                        "MA",
                        "TI",
@@ -16,7 +17,7 @@ class sivu():
                        "PE" ]
 
         self.ruokaLista = self._makeRuokalista()
-        self.paivatList = None
+        self.paivatList = self._makePaivatList()
 
     def _makeRuokalista(self):
         lista = self.sivunSisalto[self.sivunSisalto.find("MA"):]
@@ -31,6 +32,9 @@ class sivu():
         return self.ruokaLista
 
     def getPaivatList(self):
+        return self.paivatList
+
+    def _makePaivatList(self):
         paivatSivullaString = self.ruokaLista
 
         maanantai   = paivatSivullaString[:paivatSivullaString.find("---TI")]
@@ -42,3 +46,15 @@ class sivu():
         self.paivatList = [maanantai, tiistai, keskiviikko, torstai, perjantai]
 
         return self.paivatList
+
+
+
+    def etsinta(self, etsittava):
+        for paiva in self.paivatList:
+
+            if etsittava in paiva:
+                print("Löytyi!!!")
+
+            else: print("Nope")
+
+        return
