@@ -33,7 +33,7 @@ class main():
         elif self.currDay in range(19, 26) and self.currMonth == 8:
             self.currWeek = 3
         elif self.currDay == 26 and self.currMonth == 8:
-            self.currWeek = 4
+            self.currWeek = 5
         elif self.currDay in range(27, 32) and self.currMonth == 8 or self.currDay == 1 and self.currMonth == 9:
             self.currWeek = 5
         elif self.currDay in range(2,9) and self.currMonth == 9:
