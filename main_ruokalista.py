@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.5.1"
+        self.version = "5.5.5"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -95,10 +95,10 @@ class main():
         etsinta = Entry(self.ikkuna, textvariable=self.etsittava)
         etsinta.grid(column=0, row=5)
 
-        for i in range(6):
+        for i in range(7):
             # Töytetään lista "syksy" sivu-objekteilla vain kerran ohjelman
             # ajon aikana
-            syksy.append(sivu_class.sivu(i+1))
+            syksy.append(sivu_class.sivu(i))
 
         paivatList = syksy[int(valittuViikko.get())].getPaivatList()
 
@@ -131,7 +131,7 @@ class main():
             paivanro = datetime.now().weekday()
             print(paivanro)
 
-            if paivanro == 4:
+            if paivanro == 4 or paivanro > 4:
                 valittuPaiva.set(self.paivatStr[0])
                 valittuViikko.set(self.currWeek+1)
             elif paivanro < 4:
@@ -143,10 +143,10 @@ class main():
         def kirjoitaEilen():
             paivanro = datetime.now().weekday()
 
-            if paivanro == 0:
+            if paivanro == 0 or paivanro > 4:
                 valittuPaiva.set(self.paivatStr[4])
                 valittuViikko.set(self.currWeek-1)
-            elif paivanro < 6:
+            elif paivanro < 5:
                 valittuPaiva.set(self.paivatStr[paivanro-1])
                 valittuViikko.set(self.currWeek)
 
@@ -162,25 +162,26 @@ class main():
             yht = 0
             for tulos in tulokset:
                 for paiva in tulos:
+                    viikkonro = paiva[0] + 1
                     if paiva[1] == "-M":
-                        print("viikko:", paiva[0], "päivä:", "MA")
-
-                        string += "viikko %i päivä: MA\n" % paiva[0]
+                        string += "viikko %i päivä: MA\n" % viikkonro
 
                     else:
-                        print("viikko:", paiva[0], "päivä:", paiva[1])
-                        string += "viikko %i" % paiva[0] + " päivä: %s\n" % paiva[1]
+                        string += "viikko %i" % viikkonro + " päivä: %s\n" % paiva[1]
 
                     yht += 1
-            print("Yhteensä", yht)
 
+            yht = "Tuloksia: %i" % yht
+
+            # Luodaan popup, jossa näkyy hakutulokset annetulle haulle
             popup = Toplevel()
             popup.title("Hakutulokset")
 
-            tuloksetStr = Message(popup, text=string)
+            tuloksetStr = Label(popup, text=string)
             tuloksetStr.pack()
 
-
+            yhteensa = Label(popup, text=yht)
+            yhteensa.pack()
             return
 
         kirjoita(self.text) #Tulostaa ohjeman avautuessa päivän ruoan
