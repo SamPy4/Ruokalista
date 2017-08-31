@@ -129,7 +129,6 @@ class main():
 
         def kirjoitaHuomenna():
             paivanro = datetime.now().weekday()
-            print(paivanro)
 
             if paivanro == 4:
                 valittuPaiva.set(self.paivatStr[0])
