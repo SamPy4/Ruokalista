@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.5.7"
+        self.version = "5.5.8"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -25,6 +25,9 @@ class main():
         self.currMonth  = datetime.now().month
         self.currWeek   = 0
         self.currDaySTR = self.paivatStr[datetime.now().weekday()]
+        self.currDayINT = datetime.now().weekday()
+        self.showedDay  = self.currDayINT
+        self.showedWeek = 0
 
         self.etsittava = StringVar()
 
@@ -86,7 +89,6 @@ class main():
         viikkoValikko = OptionMenu(self.ikkuna, valittuViikko, *viikko)
         viikkoValikko.grid(column=1, row=1)
 
-
         paivaValikko = OptionMenu(self.ikkuna, valittuPaiva, *paiva)
         paivaValikko.grid(column=1, row=2)
 
@@ -100,7 +102,7 @@ class main():
             # ajon aikana
             syksy.append(sivu_class.sivu(i))
 
-        paivatList = syksy[int(valittuViikko.get())].getPaivatList()
+        #paivatList = syksy[int(valittuViikko.get())-1].getPaivatList() TURHA?
 
         #paivanRuokaStr = paivatList[paiva[valittuPaiva.get()]]
 
@@ -121,10 +123,16 @@ class main():
 
             self.text = paivanRuoka
 
+            print(self.showedDay)
+            print(self.showedWeek)
+            print()
+
         def kirjoitaTanaan():
             valittuPaiva.set(self.currDaySTR)
             valittuViikko.set(self.currWeek)
 
+            self.showedDay  = datetime.now().weekday()
+            self.showedWeek = self.currWeek
             kirjoita(self.text)
 
         def kirjoitaHuomenna():
@@ -133,12 +141,24 @@ class main():
             if paivanro == 4:
                 valittuPaiva.set(self.paivatStr[0])
                 valittuViikko.set(self.currWeek+1)
+
+                self.showedWeek = self.currWeek+1
+                self.showedDay  = 0
+
             elif paivanro > 4:
                 valittuPaiva.set(self.paivatStr[1])
                 valittuViikko.set(self.currWeek)
+
+                self.showedWeek = self.currWeek
+                self.showedDay = 1
+
             elif paivanro < 4:
                 valittuPaiva.set(self.paivatStr[paivanro+1])
                 valittuViikko.set(self.currWeek)
+
+                self.showedWeek = self.currWeek
+                self.showedDay  = paivanro+1
+
 
             kirjoita(self.text)
 
@@ -148,11 +168,36 @@ class main():
             if paivanro == 0 or paivanro > 4:
                 valittuPaiva.set(self.paivatStr[4])
                 valittuViikko.set(self.currWeek-1)
+
+                self.showedWeek = self.currWeek-1
+                self.showedDay = 4
+
             elif paivanro < 5:
                 valittuPaiva.set(self.paivatStr[paivanro-1])
                 valittuViikko.set(self.currWeek)
 
+                self.showedWeek = self.currWeek
+                self.showedDay = paivanro - 1
+
             kirjoita(self.text)
+
+        def kirjoitaSeur():
+            paivanro  = self.showedDay
+            viikkonro = self.showedWeek
+
+            if paivanro < 4:
+                valittuPaiva.set(self.paivaStr[paivanro+1])
+                valittuViikko.set(viikkonro)
+
+                self.showedWeek = viikkonro
+                self.showedDay  = paivanro + 1
+            elif paivanro > 4:
+                valittuPaiva.set(self.paivaStr[0])
+                valittuViikko.set(viikkonro + 1)
+
+                self.showedDay  = 0
+                self.shwoedWeek = viikkonro + 1
+            return
 
         def etsi():
             """ Etsitään kaikista mahdollisista päivistä, sisältääkö merkkijono etsittävän"""
