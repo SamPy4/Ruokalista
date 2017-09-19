@@ -2,7 +2,7 @@ import PyPDF2
 """ This module parses the vantti pdf file """
 class sivu():
     def __init__(self, sivuIndex):
-        self.ruokaListaORG = open("ruokalista_2017_syksy.pdf", "rb")
+        self.ruokaListaORG = open("ruokalista_2017_syksy-loppu.pdf", "rb")
         self.reader  = PyPDF2.PdfFileReader(self.ruokaListaORG)
         self.sivu  =  self.reader.getPage(sivuIndex)
 
