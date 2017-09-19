@@ -2,13 +2,13 @@ import PyPDF2, sivu_class
 from tkinter import *
 from datetime import datetime
 
-# TODO: Ikkuna levittää itsentä niin että teksti pomppaa pois näkyvistä
+# TODO: Ikkuna levittää itsensä niin että teksti pomppaa pois näkyvistä
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
 # TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voisi tehdä sen pdf:n käsittelyssä
 
 class main():
     def __init__(self):
-        self.version = "5.5.8"
+        self.version = "5.6.0"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -31,19 +31,17 @@ class main():
 
         self.etsittava = StringVar()
 
-        if self.currDay in range(7, 12) and self.currMonth == 8:
+        if self.currDay in range(11, 16) and self.currMonth == 9:
             self.currWeek = 1
-        elif self.currDay in range(12, 19) and self.currMonth == 8:
+        elif self.currDay in range(16, 23) and self.currMonth == 9:
             self.currWeek = 2
-        elif self.currDay in range(19, 26) and self.currMonth == 8:
+        elif self.currDay in range(23, 30) and self.currMonth == 9:
             self.currWeek = 3
-        elif self.currDay == 26 and self.currMonth == 8:
+        elif self.currDay in range(2, 7) and self.currMonth == 10:
             self.currWeek = 5
-        elif self.currDay in range(27, 32) and self.currMonth == 8 or self.currDay == 1 and self.currMonth == 9:
-            self.currWeek = 5
-        elif self.currDay in range(2,9) and self.currMonth == 9:
+        elif self.currDay in range(7, 14) and self.currMonth == 10:
             self.currWeek = 6
-        elif self.currDay in range(9,16) and self.currMonth == 9:
+        elif self.currDay in range(14, 21) and self.currMonth == 10:
             self.currWeek = 7
         #print(self.currWeek)
         #print(self.currDay, self.currMonth)
