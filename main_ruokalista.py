@@ -38,13 +38,15 @@ class main():
         elif self.currDay in range(23, 30) and self.currMonth == 9:
             self.currWeek = 3
         elif self.currDay in range(2, 7) and self.currMonth == 10:
-            self.currWeek = 5
+            self.currWeek = 4
         elif self.currDay in range(7, 14) and self.currMonth == 10:
-            self.currWeek = 6
+            self.currWeek = 5
         elif self.currDay in range(14, 21) and self.currMonth == 10:
-            self.currWeek = 7
+            self.currWeek = 6
         #print(self.currWeek)
         #print(self.currDay, self.currMonth)
+
+        self.paivaStr = ["maanantai", "tiistai", "keskiviikko", "torstai", "perjantai" ]
 
     def run(self):
         paiva = {"maanantai"   : 0,
@@ -121,8 +123,8 @@ class main():
 
             self.text = paivanRuoka
 
-            print(self.showedDay)
-            print(self.showedWeek)
+            print("Kirjoitettu päivä", self.showedDay)
+            print("Kiroitettu viikko", self.showedWeek)
             print()
 
         def kirjoitaTanaan():
@@ -183,18 +185,24 @@ class main():
             paivanro  = self.showedDay
             viikkonro = self.showedWeek
 
-            if paivanro < 4:
+            print("paivanro", paivanro)
+            print("viikkonro", viikkonro)
+
+            if paivanro <= 4:
                 valittuPaiva.set(self.paivaStr[paivanro+1])
                 valittuViikko.set(viikkonro)
 
                 self.showedWeek = viikkonro
                 self.showedDay  = paivanro + 1
-            elif paivanro > 4:
+
+            elif paivanro >= 4:
                 valittuPaiva.set(self.paivaStr[0])
                 valittuViikko.set(viikkonro + 1)
 
                 self.showedDay  = 0
                 self.shwoedWeek = viikkonro + 1
+
+            kirjoita(self.text)
             return
 
         def etsi():
@@ -246,6 +254,9 @@ class main():
 
         etsiNappi = Button(self.ikkuna, text="Etsi", command=etsi)
         etsiNappi.grid(column=1,row=5)
+
+        seurNappi = Button(self.ikkuna, text="Seuraava", command=kirjoitaSeur)
+        seurNappi.grid(column=4, row=5)
 
         mainloop()
 
