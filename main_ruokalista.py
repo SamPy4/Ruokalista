@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.6.0"
+        self.version = "5.7.5"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -185,22 +185,53 @@ class main():
             paivanro  = self.showedDay
             viikkonro = self.showedWeek
 
-            print("paivanro", paivanro)
-            print("viikkonro", viikkonro)
+            #print("paivanro", paivanro)
+            #print("viikkonro", viikkonro)
 
-            if paivanro <= 4:
+            if paivanro < 4:
                 valittuPaiva.set(self.paivaStr[paivanro+1])
                 valittuViikko.set(viikkonro)
 
                 self.showedWeek = viikkonro
                 self.showedDay  = paivanro + 1
 
-            elif paivanro >= 4:
+            if paivanro == 4:
                 valittuPaiva.set(self.paivaStr[0])
                 valittuViikko.set(viikkonro + 1)
 
                 self.showedDay  = 0
-                self.shwoedWeek = viikkonro + 1
+                print("Lisätään viikko", viikkonro)
+                self.showedWeek += 1
+
+            #print("Enne kirjoitusta päivä on: %i" % self.showedDay)
+            #print("Enne kirjoitusta viikko on: %i" % self.showedWeek)
+
+            kirjoita(self.text)
+            return
+
+        def kirjoitaEdel():
+            paivanro  = self.showedDay
+            viikkonro = self.showedWeek
+
+            #print("paivanro", paivanro)
+            #print("viikkonro", viikkonro)
+
+            if paivanro > 0:
+                valittuPaiva.set(self.paivaStr[paivanro-1])
+                valittuViikko.set(viikkonro)
+
+                self.showedWeek = viikkonro
+                self.showedDay  = paivanro - 1
+
+            if paivanro == 0:
+                valittuPaiva.set(self.paivaStr[4])
+                valittuViikko.set(viikkonro - 1)
+
+                self.showedDay  = 4
+                self.showedWeek -= 1
+
+            #print("Enne kirjoitusta päivä on: %i" % self.showedDay)
+            #print("Enne kirjoitusta viikko on: %i" % self.showedWeek)
 
             kirjoita(self.text)
             return
@@ -239,7 +270,8 @@ class main():
 
         kirjoita(self.text) #Tulostaa ohjeman avautuessa päivän ruoan
 
-        # Tulostaa tämän päivän tuoan välittämättä siitä, missä käyttäjä on
+        # Tulostaa tämän päivän ruoan välittämättä siitä, missä käyttäjä on
+        kirjoitaTanaan() # Kirjoittaa päivän ruoan ohjelman alkaessa ja päivittää samalla self.showed- arvot
         tanaanNappi = Button(self.ikkuna, text="Tänään", command=kirjoitaTanaan)
         tanaanNappi.grid(column=2,row=3)
 
@@ -257,6 +289,9 @@ class main():
 
         seurNappi = Button(self.ikkuna, text="Seuraava", command=kirjoitaSeur)
         seurNappi.grid(column=4, row=5)
+
+        edelNappi = Button(self.ikkuna, text="Edellinen", command=kirjoitaEdel)
+        edelNappi.grid(column=3, row=5)
 
         mainloop()
 
