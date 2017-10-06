@@ -123,9 +123,9 @@ class main():
 
             self.text = paivanRuoka
 
-            print("Kirjoitettu päivä", self.showedDay)
-            print("Kiroitettu viikko", self.showedWeek)
-            print()
+            # print("Kirjoitettu päivä", self.showedDay)
+            # print("Kiroitettu viikko", self.showedWeek)
+            # print()
 
         def kirjoitaTanaan():
             valittuPaiva.set(self.currDaySTR)
@@ -200,7 +200,6 @@ class main():
                 valittuViikko.set(viikkonro + 1)
 
                 self.showedDay  = 0
-                print("Lisätään viikko", viikkonro)
                 self.showedWeek += 1
 
             #print("Enne kirjoitusta päivä on: %i" % self.showedDay)
