@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.8.5"
+        self.version = "5.8.7"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -241,7 +241,28 @@ class main():
 
             kirjoita(self.text)
             return
+        def ohje():
+            string = """Sami Porio 2017 VANTTI-ruokalista \n v {} \n
+Pikanäppäimet:\n
+välilyönti : tämä päivä\n
+ylä nuoli : huominen\n
+ala nuoli : eilinen\n
+oikea nuoli : seuraava päivä\n
+vasen nuoli : edellinen päivä\n
+enter : etsi\n
+esc : sulje
+             """.format(self.version)
 
+            ohjePopup = Toplevel()
+            ohjePopup.title("Ohje")
+
+            def poistu(event):
+                ohjePopup.destroy()
+
+            ohjePopup.bind("<Escape>", poistu)
+
+            ohjeteksti = Label(ohjePopup, text=string)
+            ohjeteksti.grid(column=0, row=0)
         def etsi():
             """ Etsitään kaikista mahdollisista päivistä, sisältääkö merkkijono etsittävän"""
             tulokset = []
@@ -266,6 +287,11 @@ class main():
             # Luodaan popup, jossa näkyy hakutulokset annetulle haulle
             popup = Toplevel()
             popup.title("Hakutulokset")
+
+            def poistu(event):
+                popup.destroy()
+
+            popup.bind("<Escape>", poistu)
 
             tuloksetStr = Label(popup, text=string)
             tuloksetStr.pack()
@@ -300,7 +326,7 @@ class main():
 
         # Tulostaa tämän päivän ruoan välittämättä siitä, missä käyttäjä on
         kirjoitaTanaan() # Kirjoittaa päivän ruoan ohjelman alkaessa ja päivittää samalla self.showed- arvot
-        tanaanNappi = Button(self.ikkuna, text="Tänään", command=kirjoitaTanaan)
+        tanaanNappi = Button(self.ikkuna, text="Tänään", command=ohje)
         tanaanNappi.grid(column=2,row=3)
 
         eilenNappi = Button(self.ikkuna, text="Eilen", command=kirjoitaEilen)
@@ -320,6 +346,8 @@ class main():
 
         edelNappi = Button(self.ikkuna, text="Edellinen", command=kirjoitaEdel)
         edelNappi.grid(column=3, row=5)
+
+        ohjeNappi = Button(self.ikkuna, text="Ohje", command=ohje)
 
         mainloop()
 
