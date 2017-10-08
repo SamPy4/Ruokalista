@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.8.1"
+        self.version = "5.8.5"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -94,7 +94,8 @@ class main():
 
         """INITIALIZING SEARCH ENTRY"""
 
-        etsinta = Entry(self.ikkuna, textvariable=self.etsittava)
+        etsinta = Entry(self.ikkuna, textvariable=self.etsittava, takefocus=True)
+        etsinta.bind("<Enter>")
         etsinta.grid(column=0, row=5)
 
         for i in range(7):
@@ -277,6 +278,7 @@ class main():
 
         def painettu(event):
             nappi = event.keysym
+            print(nappi)
 
             if nappi == "Left":
                 kirjoitaEdel()
@@ -288,6 +290,10 @@ class main():
                 kirjoitaHuomenna()
             if nappi == "Down":
                 kirjoitaEilen()
+            if nappi == "Return":
+                etsi()
+            if nappi == "Escape":
+                exit()
             return
 
         self.ikkuna.bind("<Key>", painettu)
