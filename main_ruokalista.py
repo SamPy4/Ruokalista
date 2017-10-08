@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.8.0"
+        self.version = "5.8.1"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -284,6 +284,10 @@ class main():
                 kirjoitaSeur()
             if nappi == "space":
                 kirjoitaTanaan()
+            if nappi == "Up":
+                kirjoitaHuomenna()
+            if nappi == "Down":
+                kirjoitaEilen()
             return
 
         self.ikkuna.bind("<Key>", painettu)
