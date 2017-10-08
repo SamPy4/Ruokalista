@@ -124,9 +124,9 @@ class main():
 
             self.text = paivanRuoka
 
-            print("Kirjoitettu päivä", self.showedDay)
-            print("Kiroitettu viikko", self.showedWeek)
-            print()
+            #print("Kirjoitettu päivä", self.showedDay)
+            #print("Kiroitettu viikko", self.showedWeek)
+            #print()
 
         def kirjoitaTanaan():
             valittuPaiva.set(self.currDaySTR)
@@ -189,8 +189,8 @@ class main():
             paivanro  = self.showedDay
             viikkonro = self.showedWeek
 
-            print("paivanro", paivanro)
-            print("viikkonro", viikkonro)
+            #print("paivanro", paivanro)
+            #print("viikkonro", viikkonro)
 
             if paivanro is not 4:
                 valittuPaiva.set(self.paivaStr[paivanro+1])
@@ -204,7 +204,7 @@ class main():
                 valittuViikko.set(viikkonro + 1)
 
                 self.showedDay  = 0
-                print("Lisätään viikko", viikkonro)
+                #print("Lisätään viikko", viikkonro)
                 self.showedWeek += 1
 
             #print("Enne kirjoitusta päivä on: %i" % self.showedDay)
@@ -221,8 +221,8 @@ class main():
             #print("viikkonro", viikkonro)
 
             if paivanro > 0 and paivanro <= 4:
-                print(len(self.paivaStr))
-                print("problem?", paivanro)
+                #print(len(self.paivaStr))
+                #print("problem?", paivanro)
                 valittuPaiva.set(self.paivaStr[paivanro-1])
                 valittuViikko.set(viikkonro)
 
@@ -242,14 +242,14 @@ class main():
             kirjoita(self.text)
             return
         def ohje():
-            string = """Sami Porio 2017 VANTTI-ruokalista \n v {} \n
+            string = """Sami Porio 2017 VANTTI-ruokalista \n v. {} \n
 Pikanäppäimet:\n
 välilyönti : tämä päivä\n
 ylä nuoli : huominen\n
 ala nuoli : eilinen\n
 oikea nuoli : seuraava päivä\n
 vasen nuoli : edellinen päivä\n
-o : ohje
+o : ohje\n
 enter : etsi\n
 esc : sulje
              """.format(self.version)
@@ -304,8 +304,9 @@ esc : sulje
         kirjoita(self.text) #Tulostaa ohjeman avautuessa päivän ruoan
 
         def painettu(event):
+            """ Ottaa painetun napin ja tekee sillä jotain """
             nappi = event.keysym
-            print(nappi)
+            #print(nappi)
 
             if nappi == "Left":
                 kirjoitaEdel()
