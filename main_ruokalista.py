@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.7.5"
+        self.version = "5.8.0"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -46,7 +46,7 @@ class main():
         #print(self.currWeek)
         #print(self.currDay, self.currMonth)
 
-        self.paivaStr = ["maanantai", "tiistai", "keskiviikko", "torstai", "perjantai" ]
+        self.paivaStr = ["maanantai", "tiistai", "keskiviikko", "torstai", "perjantai"]
 
     def run(self):
         paiva = {"maanantai"   : 0,
@@ -123,9 +123,9 @@ class main():
 
             self.text = paivanRuoka
 
-            # print("Kirjoitettu päivä", self.showedDay)
-            # print("Kiroitettu viikko", self.showedWeek)
-            # print()
+            print("Kirjoitettu päivä", self.showedDay)
+            print("Kiroitettu viikko", self.showedWeek)
+            print()
 
         def kirjoitaTanaan():
             valittuPaiva.set(self.currDaySTR)
@@ -133,6 +133,9 @@ class main():
 
             self.showedDay  = datetime.now().weekday()
             self.showedWeek = self.currWeek
+            if datetime.now().weekday() > 4:
+                    self.showedDay  = 0
+
             kirjoita(self.text)
 
         def kirjoitaHuomenna():
@@ -185,10 +188,10 @@ class main():
             paivanro  = self.showedDay
             viikkonro = self.showedWeek
 
-            #print("paivanro", paivanro)
-            #print("viikkonro", viikkonro)
+            print("paivanro", paivanro)
+            print("viikkonro", viikkonro)
 
-            if paivanro < 4:
+            if paivanro is not 4:
                 valittuPaiva.set(self.paivaStr[paivanro+1])
                 valittuViikko.set(viikkonro)
 
@@ -200,6 +203,7 @@ class main():
                 valittuViikko.set(viikkonro + 1)
 
                 self.showedDay  = 0
+                print("Lisätään viikko", viikkonro)
                 self.showedWeek += 1
 
             #print("Enne kirjoitusta päivä on: %i" % self.showedDay)
@@ -215,14 +219,16 @@ class main():
             #print("paivanro", paivanro)
             #print("viikkonro", viikkonro)
 
-            if paivanro > 0:
+            if paivanro > 0 and paivanro <= 4:
+                print(len(self.paivaStr))
+                print("problem?", paivanro)
                 valittuPaiva.set(self.paivaStr[paivanro-1])
                 valittuViikko.set(viikkonro)
 
                 self.showedWeek = viikkonro
                 self.showedDay  = paivanro - 1
 
-            if paivanro == 0:
+            if paivanro == 0 or paivanro > 4:
                 valittuPaiva.set(self.paivaStr[4])
                 valittuViikko.set(viikkonro - 1)
 
@@ -268,6 +274,19 @@ class main():
             return
 
         kirjoita(self.text) #Tulostaa ohjeman avautuessa päivän ruoan
+
+        def painettu(event):
+            nappi = event.keysym
+
+            if nappi == "Left":
+                kirjoitaEdel()
+            if nappi == "Right":
+                kirjoitaSeur()
+            if nappi == "space":
+                kirjoitaTanaan()
+            return
+
+        self.ikkuna.bind("<Key>", painettu)
 
         # Tulostaa tämän päivän ruoan välittämättä siitä, missä käyttäjä on
         kirjoitaTanaan() # Kirjoittaa päivän ruoan ohjelman alkaessa ja päivittää samalla self.showed- arvot
