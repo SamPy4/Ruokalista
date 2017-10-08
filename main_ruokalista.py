@@ -8,7 +8,7 @@ from datetime import datetime
 
 class main():
     def __init__(self):
-        self.version = "5.8.7"
+        self.version = "5.8.9"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -71,7 +71,7 @@ class main():
         """ INITIALIZING LABELS """
 
         TopText = Label(self.ikkuna, text="v. %s" % self.version)
-        TopText.grid(column=0, row=0)
+        TopText.grid(column=1, row=0)
 
         currViikkoText = Label(self.ikkuna, text="Nyt on viikko %i" % self.currWeek)
         currViikkoText.grid(column=2, row=1)
@@ -249,6 +249,7 @@ ylä nuoli : huominen\n
 ala nuoli : eilinen\n
 oikea nuoli : seuraava päivä\n
 vasen nuoli : edellinen päivä\n
+o : ohje
 enter : etsi\n
 esc : sulje
              """.format(self.version)
@@ -318,6 +319,8 @@ esc : sulje
                 kirjoitaEilen()
             if nappi == "Return":
                 etsi()
+            if nappi == "h" or nappi == "o":
+                ohje()
             if nappi == "Escape":
                 exit()
             return
@@ -348,6 +351,7 @@ esc : sulje
         edelNappi.grid(column=3, row=5)
 
         ohjeNappi = Button(self.ikkuna, text="Ohje", command=ohje)
+        ohjeNappi.grid(column=0, row=0)
 
         mainloop()
 
