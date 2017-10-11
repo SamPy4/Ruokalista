@@ -249,7 +249,6 @@ ylä nuoli : huominen\n
 ala nuoli : eilinen\n
 oikea nuoli : seuraava päivä\n
 vasen nuoli : edellinen päivä\n
-o : ohje\n
 enter : etsi\n
 esc : sulje
              """.format(self.version)
@@ -320,8 +319,8 @@ esc : sulje
                 kirjoitaEilen()
             if nappi == "Return":
                 etsi()
-            if nappi == "h" or nappi == "o":
-                ohje()
+            #if nappi == "h" or nappi == "o":
+                #ohje()
             if nappi == "Escape":
                 exit()
             return
