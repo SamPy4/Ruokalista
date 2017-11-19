@@ -4,11 +4,16 @@ from lxml import html
 def fetch():
     url = open("url.txt", "r+")
     urlcont = url.read()
+    pdflink = []
+    try:
+        page = requests.get('http://www.vantti.fi/ruokalistat/101/0/koulut')
+    except requests.exceptions.ConnectionError:
+        print("Fetcher couldn't fetch: No internet connection")
+        print("PDF might be out-of-date")
+        return
 
-    page = requests.get('http://www.vantti.fi/ruokalistat/101/0/koulut')
     tree = html.fromstring(page.content)
     pdflink = tree.xpath("/html/body/form/div[3]/div/div[2]/div/div[1]/div/div[1]/p[2]/span//a/@href")
-
     if urlcont != pdflink[0]:
         fetchPDF()
         url.seek(0)
@@ -18,6 +23,7 @@ def fetch():
     else:
         print("PDF is up-to-date")
         return
+
 def fetchPDF():
     try:
         os.system("del ruokalista.pdf")
