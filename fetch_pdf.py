@@ -16,7 +16,7 @@ def fetch():
         url.write(pdflink[0])
         print("PDF fetched and updated")
     else:
-        print("PDF up-to-date")
+        print("PDF is up-to-date")
         return
 def fetchPDF():
     try:
