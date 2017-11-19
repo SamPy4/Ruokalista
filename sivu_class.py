@@ -1,8 +1,9 @@
-import PyPDF2
+import PyPDF2, fetch_pdf
 """ This module parses the vantti pdf file """
+# NOTE: ROW 78
 class sivu():
     def __init__(self, sivuIndex):
-        self.ruokaListaORG = open("ruokalista_2017_syksy-loppu.pdf", "rb")
+        self.ruokaListaORG = open("ruokalista.pdf", "rb")
         self.reader  = PyPDF2.PdfFileReader(self.ruokaListaORG)
         self.sivu  =  self.reader.getPage(sivuIndex)
 
@@ -62,13 +63,78 @@ class sivu():
 
 
     def getSivunPaivat(self):
-        #print(self.sivunSisalto)
-        return self.sivunSisalto
+        ind = 0
+        string = ""
+        text = self.sivunSisalto
+
+        for i in range(53):
+            finding = "VK {}".format(str(i))
+            try:
+                ind = text.index(finding)
+                vko = str(i)
+            except:
+                pass
+
+        """ 3 saattaa aiheuttaa parsimisongelmia """
+        startInd = ind + len(vko) + 3
+        lastInd = text.index("LOUNAS")
+
+        for i in range(startInd, lastInd):
+            if not text[i] == "\n" or text[i] == " ":
+                string += text[i]
+
+        string = string.strip()
+
+        if string[-1] != "." and string[-1] != " ":
+            string += "."
+
+        exist = True
+        try:
+            negsubind = string.index("-") - 1
+            possubind = string.index("-") + 1
+        except ValueError:
+            exist = False
+
+        if exist:
+            if string[negsubind] == ".":
+                string = string.replace("-","")
+            if string[possubind] == ".":
+                string = string.replace("-","")
+            else:
+                string = string.replace("-",".")
+
+        string = string.split(".")
+        string.append(self.sivuIndex+1)
+
+        try:
+            string[5]
+            string.append(True)
+        except IndexError:
+            string.append(False)
+
+        if not exist:
+            del(string[-1])
+            string.append(None)
+            for i in range(2):
+                string[i] = int(string[i])
+
+        if not string[-1] == None:
+            if string[-1]:
+                for i in range(4):
+                    string[i] = int(string[i])
+            else:
+                for i in range(3):
+                    string[i] = int(string[i])
+
+        return string
+    
+class PDFFetcher():
+    def fetch():
+        fetch_pdf.fetch()
+        return
 
 if __name__ == "__main__":
-    test = sivu(0)
-    text = test.getSivunPaivat()
-    print(text.index("VK "))
-    text = text.replace("VK ", "")
-    print(text[228])
-    print(text)
+    for i in range(7):
+        test = sivu(i)
+        text = test.getSivunPaivat()
+        print("Main:", text)
