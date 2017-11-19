@@ -10,7 +10,7 @@ sivu_class.PDFFetcher.fetch()
 
 class main():
     def __init__(self):
-        self.version = "5.8.9"
+        self.version = "10.2.1"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -61,8 +61,6 @@ class main():
         for siv in syksy:
             """ Hakee mikä sivu sivu pitää valita täksi päiväksi """
             paivat = siv.getSivunPaivat()
-
-            print(paivat[4])
 
             if paivat[-1] == False:
                 if self.currDay in range(paivat[0]-2, paivat[1]) and self.currMonth == paivat[2]:
