@@ -31,40 +31,6 @@ class main():
 
         self.etsittava = StringVar()
 
-
-
-
-
-        given_day = 23
-        given_mon = 10
-
-        acc_days  = []
-        start     = given_day
-        end       = given_day+7
-
-        for i in range(self.pituus):
-            if start >= 30:
-                print(start)
-                given_mon += 1
-                start = 1
-                end   = 8
-
-            acc_days.append([range(start, end), given_mon, i+1])
-            start = start + 1
-            end   = end   + 1
-
-        for i in acc_days:
-            print(i[0], i[1])
-
-        for i in acc_days:
-            if self.currDay in i[0] and self.currMonth == i[1]:
-                self.currWeek = i[2]
-
-        print(self.currWeek)
-
-
-
-
         if self.currDay in range(11, 16) and self.currMonth == 9:
             self.currWeek = 1
         elif self.currDay in range(16, 23) and self.currMonth == 9:
