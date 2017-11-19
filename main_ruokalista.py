@@ -6,6 +6,8 @@ from datetime import datetime
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
 # TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voisi tehdä sen pdf:n käsittelyssä
 
+sivu_class.PDFFetcher.fetch()
+
 class main():
     def __init__(self):
         self.version = "5.8.9"
@@ -15,9 +17,10 @@ class main():
 
         self.text = Label(self.ikkuna, text="")
 
-        self.ruokaListaORG = open("ruokalista_2017_syksy_2.pdf", "rb")
+        self.ruokaListaORG = open("ruokalista.pdf", "rb")
         self.reader  = PyPDF2.PdfFileReader(self.ruokaListaORG)
         self.pituus  = self.reader.numPages
+
 
         self.paivatStr = ["maanantai", "tiistai", "keskiviikko", "torstai", "perjantai", "maanantai", "maanantai"]
 
@@ -31,18 +34,7 @@ class main():
 
         self.etsittava = StringVar()
 
-        if self.currDay in range(11, 16) and self.currMonth == 9:
-            self.currWeek = 1
-        elif self.currDay in range(16, 23) and self.currMonth == 9:
-            self.currWeek = 2
-        elif self.currDay in range(23, 30) and self.currMonth == 9:
-            self.currWeek = 3
-        elif self.currDay in range(2, 7) and self.currMonth == 10:
-            self.currWeek = 4
-        elif self.currDay in range(7, 14) and self.currMonth == 10:
-            self.currWeek = 5
-        elif self.currDay in range(14, 21) and self.currMonth == 10:
-            self.currWeek = 6
+
         #print(self.currWeek)
         #print(self.currDay, self.currMonth)
 
@@ -61,6 +53,26 @@ class main():
 
         syksy = []
 
+        for i in range(self.pituus):
+            # Töytetään lista "syksy" sivu-objekteilla vain kerran ohjelman
+            # ajon aikana
+            syksy.append(sivu_class.sivu(i))
+
+        for siv in syksy:
+            """ Hakee mikä sivu sivu pitää valita täksi päiväksi """
+            paivat = siv.getSivunPaivat()
+
+            print(paivat[4])
+
+            if paivat[-1] == False:
+                if self.currDay in range(paivat[0]-2, paivat[1]) and self.currMonth == paivat[2]:
+                    self.currWeek = paivat[4]
+            elif paivat[-1] == True:
+                if self.currDay in range(paivat[0]-2, 32) and self.currMonth == paivat[1] or self.currDay in range(0, paivat[2]+3) and self.currMonth == paivat[3]:
+                    self.currWeek = paivat[5]
+            elif paivat[-1] == None:
+                if self.currDay == paivat[0] and self.currMonth == paivat[1]:
+                    self.currWeek == paivat[3]
 
         valittuViikko = StringVar(self.ikkuna)
         valittuViikko.set(self.currWeek)
@@ -97,11 +109,6 @@ class main():
         etsinta = Entry(self.ikkuna, textvariable=self.etsittava, takefocus=True)
         etsinta.bind("<Enter>")
         etsinta.grid(column=0, row=5)
-
-        for i in range(7):
-            # Töytetään lista "syksy" sivu-objekteilla vain kerran ohjelman
-            # ajon aikana
-            syksy.append(sivu_class.sivu(i))
 
         #paivatList = syksy[int(valittuViikko.get())-1].getPaivatList() TURHA?
 
@@ -329,7 +336,7 @@ esc : sulje
 
         # Tulostaa tämän päivän ruoan välittämättä siitä, missä käyttäjä on
         kirjoitaTanaan() # Kirjoittaa päivän ruoan ohjelman alkaessa ja päivittää samalla self.showed- arvot
-        tanaanNappi = Button(self.ikkuna, text="Tänään", command=ohje)
+        tanaanNappi = Button(self.ikkuna, text="Tänään", command=kirjoitaTanaan)
         tanaanNappi.grid(column=2,row=3)
 
         eilenNappi = Button(self.ikkuna, text="Eilen", command=kirjoitaEilen)
