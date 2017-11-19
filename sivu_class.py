@@ -59,3 +59,16 @@ class sivu():
                 tulokset.append((vko, pv))
 
         return tulokset
+
+
+    def getSivunPaivat(self):
+        #print(self.sivunSisalto)
+        return self.sivunSisalto
+
+if __name__ == "__main__":
+    test = sivu(0)
+    text = test.getSivunPaivat()
+    print(text.index("VK "))
+    text = text.replace("VK ", "")
+    print(text[228])
+    print(text)
