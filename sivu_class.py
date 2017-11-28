@@ -1,6 +1,8 @@
 import PyPDF2, fetch_pdf
+
 """ This module parses the vantti pdf file """
 # NOTE: ROW 78
+
 class sivu():
     def __init__(self, sivuIndex):
         self.ruokaListaORG = open("ruokalista.pdf", "rb")
@@ -127,7 +129,7 @@ class sivu():
                     string[i] = int(string[i])
 
         return string
-    
+
 class PDFFetcher():
     def fetch():
         fetch_pdf.fetch()
