@@ -6,11 +6,10 @@ from datetime import datetime
 # TODO: Sisältää tyhmän "maanantai" = 0 = maanantai käännöksen
 # TODO: Päivät joiden mukaan viikot on märätty ovat kovakoodattu, voisi tehdä sen pdf:n käsittelyssä
 
-sivu_class.PDFFetcher.fetch()
-
 class main():
     def __init__(self):
-        self.version = "10.2.1"
+        sivu_class.PDFFetcher.fetch()
+        self.version = "10.2.2"
 
         self.ikkuna = Tk()
         self.ikkuna.title("Kouluruoka - Syksy")
@@ -117,8 +116,9 @@ class main():
         # paivanRuoka.pack()
 
         def kirjoita(label):
-            """ Overwrites the existing text and replaces it"""
+            """ Overwrites the existing text and replaces it """
             label.destroy()
+
 
             # 0-4 maanantai = 0 perjantai = 4
             paivatList = syksy[int(valittuViikko.get())-1].getPaivatList()
@@ -334,6 +334,8 @@ esc : sulje
 
         # Tulostaa tämän päivän ruoan välittämättä siitä, missä käyttäjä on
         kirjoitaTanaan() # Kirjoittaa päivän ruoan ohjelman alkaessa ja päivittää samalla self.showed- arvot
+
+        """ INITIALIZING BUTTONS """
         tanaanNappi = Button(self.ikkuna, text="Tänään", command=kirjoitaTanaan)
         tanaanNappi.grid(column=2,row=3)
 
